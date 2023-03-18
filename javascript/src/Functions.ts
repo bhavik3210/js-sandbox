@@ -104,6 +104,8 @@ const demoImmediateInvokeFunction = () => {
   );
 };
 
+const demoFunctionParameters = () => {};
+
 export function demoFunctions() {
   h1("Functions");
   // demoFunctionDeclaration();
@@ -111,4 +113,5 @@ export function demoFunctions() {
   // demoArrowFunction();
   // demoFunctionConstructor();
   // demoImmediateInvokeFunction();
+  demoFunctionParameters();
 }
