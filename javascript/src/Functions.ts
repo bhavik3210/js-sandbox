@@ -3,10 +3,7 @@ import { h1, h2, log, notes, output } from "./Util";
 /*
   Functions
 */
-
-export function demoFunctions() {
-  h1("Functions");
-
+function demoFunctionDeclaration() {
   h2("Function Declaration ");
   function convertKilogramToPound(valueInKg) {
     return valueInKg * 2.2;
@@ -17,7 +14,9 @@ export function demoFunctions() {
     }
   `);
   output(`${convertKilogramToPound(20)}`);
+}
 
+const demoFunctionExpression = function () {
   h2("Function Expression");
   let convertKilogramToPound2 = function (valueInKg) {
     return valueInKg * 2.2;
@@ -30,7 +29,9 @@ export function demoFunctions() {
     convertKilogramToPound2(20) evaluates to ${convertKilogramToPound2(20)}
   `);
   output(`${convertKilogramToPound2(20)}`);
+};
 
+const demoArrowFunction = () => {
   h2("Arrow Function");
   notes(`
   - When you have only one parameter you can omit parenthesis
@@ -52,7 +53,9 @@ export function demoFunctions() {
   convertKilogramToPound3(20) evaluates to 
   `);
   output(`${convertKilogramToPound3(20)}`);
+};
 
+const demoFunctionConstructor = () => {
   h2("Function Constructor");
   const convertToLiters4 = Function("valueInKg", "return valueInKg * 2.2");
   notes(`
@@ -62,7 +65,9 @@ export function demoFunctions() {
   const convertToLiters4 = Function("valueInKg", "return valueInKg * 2.2");
   `);
   output(`${convertToLiters4(20)}`);
+};
 
+const demoImmediateInvokeFunction = () => {
   h2("IIFE (Immediately Invoked Function Expression)");
   notes(`
     Two parts to this (PART-1)(PART-2)
@@ -95,4 +100,13 @@ export function demoFunctions() {
       return 20 * 2.2;
     })()}`
   );
+};
+
+export function demoFunctions() {
+  h1("Functions");
+  demoFunctionDeclaration();
+  demoFunctionExpression();
+  demoArrowFunction();
+  demoFunctionConstructor();
+  demoImmediateInvokeFunction();
 }
