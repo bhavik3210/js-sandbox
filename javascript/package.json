@@ -1,0 +1,30 @@
+{
+  "name": "javascript",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "start": "nodemon -q js/app.js",
+    "tsc": "tsc",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "devDependencies": {
+    "@types/node": "^18.15.3",
+    "typescript": "^5.0.2"
+  },
+  "nodemonConfig": {
+    "verbose": false,
+    "watch": [
+      "js",
+      "ts"
+    ],
+    "ext": "js, ts, json",
+    "ignore": [
+      "**/test/**",
+      "**/docs/**"
+    ],
+    "events": {
+      "start": "clear"
+    }
+  }
+}

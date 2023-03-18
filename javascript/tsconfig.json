@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "target": "es2016",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "outDir": "js",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "noImplicitAny": false,
+    "strictNullChecks": true,
+    "skipLibCheck": true,
+    "watch": true
+  },
+  "exclude": ["node_modules", "typings/browser.d.ts", "typings/browser"]
+}
