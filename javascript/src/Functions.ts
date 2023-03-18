@@ -12,47 +12,49 @@ function demoFunctionDeclaration() {
     function convertKilogramToPound(valueInKg) {
       return valueInKg * 2.2;
     }
+
+    convertKilogramToPound(20)
   `);
   output(`${convertKilogramToPound(20)}`);
 }
 
 const demoFunctionExpression = function () {
   h2("Function Expression");
-  let convertKilogramToPound2 = function (valueInKg) {
+  let convertKilogramToPound = function (valueInKg) {
     return valueInKg * 2.2;
   };
   log(`
-    let convertKilogramToPound2 = function (valueInKg) {
+    let convertKilogramToPound = function (valueInKg) {
       return valueInKg * 2.2;
     };
 
-    convertKilogramToPound2(20) evaluates to ${convertKilogramToPound2(20)}
+    convertKilogramToPound(20)
   `);
-  output(`${convertKilogramToPound2(20)}`);
+  output(`${convertKilogramToPound(20)}`);
 };
 
 const demoArrowFunction = () => {
   h2("Arrow Function");
   notes(`
-  - When you have only one parameter you can omit parenthesis
+  - When you only have one parameter you can omit parenthesis
   `);
-  let convertKilogramToPound3 = (valueInKg) => {
+  let convertKilogramToPound = (valueInKg) => {
     return valueInKg * 2.2;
   };
   log(`
-  let convertKilogramToPound3 = (valueInKg, secondParameter, third, etc) => {
+  let convertKilogramToPound = (valueInKg, secondParameter, third, etc) => {
     return valueInKg * 2.2;
   };
 
   OR 
 
-  let convertKilogramToPound3 = valueInKg => {
+  let convertKilogramToPound = valueInKg => {
     return valueInKg * 2.2;
   };
 
-  convertKilogramToPound3(20) evaluates to 
+  convertKilogramToPound(20) 
   `);
-  output(`${convertKilogramToPound3(20)}`);
+  output(`${convertKilogramToPound(20)}`);
 };
 
 const demoFunctionConstructor = () => {
@@ -104,9 +106,9 @@ const demoImmediateInvokeFunction = () => {
 
 export function demoFunctions() {
   h1("Functions");
-  demoFunctionDeclaration();
-  demoFunctionExpression();
-  demoArrowFunction();
-  demoFunctionConstructor();
-  demoImmediateInvokeFunction();
+  // demoFunctionDeclaration();
+  // demoFunctionExpression();
+  // demoArrowFunction();
+  // demoFunctionConstructor();
+  // demoImmediateInvokeFunction();
 }
