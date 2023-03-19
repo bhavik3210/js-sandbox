@@ -104,7 +104,119 @@ const demoImmediateInvokeFunction = () => {
   );
 };
 
-const demoFunctionParameters = () => {};
+const demoFunctionDefaultParameters = () => {
+  h2("Default Parameters");
+  notes(`
+  Primitive Data types are passed by value
+  Object data types are passed by reference
+
+  With default parameters, the order of the argument passed does matter as shown in the last example
+
+  const createPersonLineItem = (firstName, lastName, age = 0) => {
+    return new Object({ firstName: firstName, lastName: lastName, age: age });
+  };
+  `);
+
+  const createPersonLineItem = (firstName, lastName, age = 0) => {
+    return new Object({ firstName: firstName, lastName: lastName, age: age });
+  };
+
+  log(
+    `createPersonLineItem("John", "Doe"); will return ${JSON.stringify(
+      createPersonLineItem("John", "Doe")
+    )}`
+  );
+
+  log(
+    `createPersonLineItem("Jane", "Doe"; 100); will return ${JSON.stringify(
+      createPersonLineItem("Jane", "Doe", 100)
+    )}`
+  );
+
+  log(
+    `createPersonLineItem("Jane", 100); will return ${JSON.stringify(
+      createPersonLineItem("Jane", 100)
+    )}`
+  );
+};
+
+const demoFunctionWithArgumentsObject = () => {
+  h2(`"arguments" object`);
+  notes(`
+    - "arguments" is passed by default without being declared in the parameter in function declaration explicitly
+    - in modern js use rest parameters instead of arguments object
+    - arguments object is just a list that can take infinite amount of items with any type
+    - since arguments object is a collection, it can be iterate over using any looping mechanism
+    - arguments object is not available in arrow function
+    - in general AVOID using this, and if you need it use Rest parameters [...restArgument]
+
+    function createPersonLineItem() {
+      return new Object({
+        firstName: arguments[0],
+        lastName: arguments[1],
+        age: arguments[2],
+      });
+    }
+  
+    NOTE: Typescript won't even let me execute (calls below) the arguments object by default
+    log(
+      createPersonLineItem("John", "Doe"); will return \${JSON.stringify(
+        createPersonLineItem("John", "Doe")
+      )}
+    );
+  
+    log(
+      createPersonLineItem("Jane", "Doe"; 100); will return \${JSON.stringify(
+        createPersonLineItem("Jane", "Doe", 100)
+      )}
+    );
+  
+    log(
+      createPersonLineItem("Jane", 100); will return \${JSON.stringify(
+        createPersonLineItem("Jane", 100)
+      )}
+    );
+  `);
+};
+
+const demoFunctionWithRestParametersObject = () => {
+  h2("Rest Parameters");
+  notes(`
+    const createPersonLineItem = (...personInfo) => {
+      return new Object({
+        firstName: personInfo[0],
+        lastName: personInfo[1],
+        age: personInfo[2],
+      });
+    };
+  `);
+
+  const createPersonLineItem = (...personInfo) => {
+    return new Object({
+      firstName: personInfo[0],
+      lastName: personInfo[1],
+      age: personInfo[2],
+    });
+  };
+
+  log(
+    `createPersonLineItem("John", "Doe"); will return ${JSON.stringify(
+      createPersonLineItem("John", "Doe")
+    )}`
+  );
+
+  log(
+    `createPersonLineItem("Jane", "Doe"; 100); will return ${JSON.stringify(
+      createPersonLineItem("Jane", "Doe", 100)
+    )}`
+  );
+
+  log(
+    `createPersonLineItem("Jane", 100); will return ${JSON.stringify(
+      createPersonLineItem("Jane", 100)
+    )}`
+  );
+};
 
 export function demoFunctions() {
   h1("Functions");
@@ -113,5 +225,7 @@ export function demoFunctions() {
   // demoArrowFunction();
   // demoFunctionConstructor();
   // demoImmediateInvokeFunction();
-  demoFunctionParameters();
+  // demoFunctionDefaultParameters();
+  // demoFunctionWithArgumentsObject();
+  demoFunctionWithRestParametersObject();
 }
