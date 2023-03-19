@@ -238,6 +238,6 @@ export function demoFunctions() {
   // demoImmediateInvokeFunction();
   // demoFunctionDefaultParameters();
   // demoFunctionWithArgumentsObject();
-  // demoFunctionWithRestParametersObject();
+  demoFunctionWithRestParametersObject();
   // demoPassFunctionAsArgument();
 }
