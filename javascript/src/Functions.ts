@@ -218,6 +218,17 @@ const demoFunctionWithRestParametersObject = () => {
   );
 };
 
+const demoPassFunctionAsArgument = () => {
+  h2("Pass Function as argument");
+
+  const displayTime = () => {
+    const time = new Date().toLocaleTimeString();
+    log(time);
+  };
+
+  setInterval(displayTime, 1000);
+};
+
 export function demoFunctions() {
   h1("Functions");
   // demoFunctionDeclaration();
@@ -227,5 +238,6 @@ export function demoFunctions() {
   // demoImmediateInvokeFunction();
   // demoFunctionDefaultParameters();
   // demoFunctionWithArgumentsObject();
-  demoFunctionWithRestParametersObject();
+  // demoFunctionWithRestParametersObject();
+  // demoPassFunctionAsArgument();
 }
