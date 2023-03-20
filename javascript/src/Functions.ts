@@ -229,6 +229,114 @@ const demoPassFunctionAsArgument = () => {
   setInterval(displayTime, 1000);
 };
 
+const demoInstanceMethodsOfAnObjectInstance = () => {
+  h2("Object Instance Methods");
+  notes(
+    `Methods are referred to functions that are sitting inside a class and can only be used with the instance of the object of that class
+
+    class FlightPlan {
+      flightId: string;
+      flightCost: string;
+  
+      constructor(flightId = "", flightCost = "") {
+        this.flightId = flightId;
+        this.flightCost = flightCost;
+      }
+  
+      getFlightInfo() {
+        return \`FlightID: \${this.flightId}, FlightCost: \${this.flightCost}\`;
+      }
+
+      // official getter syntax
+      get flightInformation() {
+        return \`FlightID: \${this.flightId}, \n        FlightCost: \${this.flightCost}   
+      }
+    }
+  
+    const flight = new FlightPlan("ASDF123", "$100");
+  
+    output(flight.getFlightInfo());`
+  );
+
+  class FlightPlan {
+    private flightId: string;
+    protected flightCost: string;
+    public flightName: string;
+
+    constructor(flightId = "", flightCost = "", flightName = "") {
+      this.flightId = flightId;
+      this.flightCost = flightCost;
+      this.flightName = flightName;
+    }
+
+    // Method syntax
+    getFlightInfo() {
+      return `FlightID: ${this.flightId}, \n        FlightCost: ${this.flightCost}   `;
+    }
+
+    // getter syntax
+    get flightInformation() {
+      return `FlightID: ${this.flightId}, \n        FlightCost: ${this.flightCost}   `;
+    }
+
+    // setter syntax
+    set cost(value: string) {
+      if (!value) {
+        throw new Error("value must have amount");
+      }
+
+      this.flightCost = value;
+    }
+
+    // getter syntax
+    get cost() {
+      return this.flightCost;
+    }
+  }
+
+  const flight = new FlightPlan("ASDF123", "$100");
+
+  output(flight.getFlightInfo());
+};
+
+const demoClosure = () => {
+  h2("Object Instance Methods");
+  notes(
+    `Closure will retain the context/state of the environment that surrounds it  let closureBlock;
+
+      (() => {
+        let numberOfPassengers = 100;
+        const addPassenger = () => {
+          numberOfPassengers++;
+          log(numberOfPassengers);
+        };
+        closureBlock = addPassenger;
+      })();
+    
+      closureBlock(); This still has access to numberOfPassengers
+      closureBlock();
+      closureBlock();
+
+
+    `
+  );
+
+  let closureBlock;
+
+  (() => {
+    let numberOfPassengers = 100;
+    const addPassenger = () => {
+      numberOfPassengers++;
+      log(numberOfPassengers);
+    };
+    closureBlock = addPassenger;
+  })();
+
+  closureBlock();
+  closureBlock();
+  closureBlock();
+};
+
 export function demoFunctions() {
   h1("Functions");
   // demoFunctionDeclaration();
@@ -238,6 +346,8 @@ export function demoFunctions() {
   // demoImmediateInvokeFunction();
   // demoFunctionDefaultParameters();
   // demoFunctionWithArgumentsObject();
-  demoFunctionWithRestParametersObject();
+  // demoFunctionWithRestParametersObject();
   // demoPassFunctionAsArgument();
+  // demoInstanceMethodsOfAnObjectInstance();
+  // demoClosure();
 }
