@@ -299,10 +299,21 @@ const demoInstanceMethodsOfAnObjectInstance = () => {
   output(flight.getFlightInfo());
 };
 
+// todo add example code that show cases three scopes
+const demoScopes = () => {
+  notes(
+    `Add examples show casing this three
+    
+    the three scopes. Global Scope, Function Scope and Block scope`
+  );
+};
+
 const demoClosure = () => {
   h2("Object Instance Methods");
   notes(
     `Closure will retain the context/state of the environment that surrounds it  let closureBlock;
+
+      
 
       (() => {
         let numberOfPassengers = 100;
