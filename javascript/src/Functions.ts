@@ -62,7 +62,10 @@ const demoFunctionConstructor = () => {
   const convertToLiters4 = Function("valueInKg", "return valueInKg * 2.2");
   notes(`
     - You can create functions during runtime but is prone to errors and security risk. 
-    - Don't Use it unless absolutely necessary.`);
+    - Don't Use it unless absolutely necessary.
+    - however this is used internally when call something like 
+    let convertToLiters4 = {} which calls convertToLiters4 = Function() internally
+  `);
   log(`
   const convertToLiters4 = Function("valueInKg", "return valueInKg * 2.2");
   `);
@@ -348,6 +351,136 @@ const demoClosure = () => {
   closureBlock();
 };
 
+function demoMysteryOfThisKeywordAndItsContext() {
+  h2(`"this" keyword and its meaning`);
+  notes(`
+    "this"
+    1. in NON-ARROW functions, "this" usually represents the object invoking the function. 
+    2. in ARROW functions, "this" refers to the parent function's scope
+
+    For example, for 1
+    "this" - Global Context
+    At the top level of a script, "this" refers to the global context
+    - Window object in HTML on a web page (https://developer.mozilla.org/en-US/docs/Web/API/Window Window object refer to this in HTML web page context)
+    - Global in Node (https://nodejs.org/api/globals.html these are all global object in node)
+
+    "use strict" will make "this" unusable because it will make it undefined
+    in Typescript, if you have "strict": true, it will not let you use this and apply "use strict" rule everywhere in the project, to avoid any potentials bugs/issues during runtime of inference because this mode changes its behavior and context based on where you run it. 
+
+    NOTE: In this mode to run the below code, "strict" needs to be set to false to be able to run. if strict mode is set to true the typescript compiler will complain. 
+
+    function printThis() {
+      log(this);
+    }
+    printThis();
+
+    in typescript when strict flag is true it is equivalent to below code
+    
+    function printThis() {
+      "use strict"
+      log(this);
+    }
+  `);
+
+  h2(`"this" keyword and its meaning in methods`);
+  notes(`
+    In methods, this keyword refers to the object it is part of. 
+    During execution of that instance of that object, it will members' this keyword 
+    will refer to the object itself. 
+  `);
+
+  h2(`"this" keyword and its meaning in Arrow Functions`);
+  notes(`
+    In arrow functions, this keyword refers to the context of what it is surrounded with. 
+
+    Arrow functions are not suitable for methods in a class/object
+
+    let aircraft = {
+      model: "Airbus A330",
+      capacity: 350,
+
+      function printA() {
+        console.log(this);
+      }
+
+      printB: () => {
+        console.log(this);
+      },
+    };
+    aircraft.printA(); will be aircraft Instance {model: "Airbus A330", capacity: 350}
+    aircraft.printB(); will be window object if run in web or global in node runtime
+
+
+    Class Example below and why does it work?
+    Under the hood, a class is simply a constructor function underneath. 
+
+    class Aircraft {
+      model: string;
+      capacity: number;
+  
+      constructor(model, capacity) {
+        this.model = model;
+        this.capacity = capacity;
+      }
+  
+      print = () => {
+        console.log(this.model);
+      };
+    }
+    const b737 = new Aircraft("Boeing 737", 190);
+    b737.print();
+
+
+    class code above is equivalent to 
+
+    function Aircraft(model, capacity) {
+      this.model = model;
+      this.capacity = capacity;
+
+      this.print = () => {
+        // "this" keyword here even though it is in arrow function, 
+        refers to the surrounding context which is the constructor function Aircraft
+        and this is why it works even though it is an arrow function, in class
+        console.log(this.model);
+      }
+    }
+  `);
+
+  class Aircraft {
+    model: string;
+    capacity: number;
+
+    constructor(model, capacity) {
+      this.model = model;
+      this.capacity = capacity;
+    }
+
+    print = () => {
+      console.log(this.model);
+    };
+  }
+  const b737 = new Aircraft("Boeing 737", 190);
+  b737.print();
+
+  h2(`controlling the value of "this" with .bind() .call() .apply()`);
+  notes(`
+    function alertPassenger(name) {
+      console.log(\`\${name}: \${this.message}\`);
+    }
+
+    const presentToGateWarning = {
+      message: \`message\`,
+      priority: 1,
+    };
+
+    alertPassenger.call(presentToGateWarning, "John Doe"); //output: "John Doe: message"
+
+    //how to use .bind
+    const jd = alertPassenger.bind(presentToGateWarning, "John Doe with Bind");
+    jd(); //this is required when using bind
+  `);
+}
+
 export function demoFunctions() {
   h1("Functions");
   // demoFunctionDeclaration();
@@ -361,4 +494,5 @@ export function demoFunctions() {
   // demoPassFunctionAsArgument();
   // demoInstanceMethodsOfAnObjectInstance();
   // demoClosure();
+  // demoMysteryOfThisKeywordAndItsContext();
 }
