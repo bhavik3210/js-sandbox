@@ -1,25 +1,23 @@
-import React, { useState } from "react";
+import React, { useReducer } from "react";
 
 const BlogContext = React.createContext();
 
-export const BlogProvider = ({ children }) => {
-  const [posts, setPosts] = useState([]);
+const blogReducer = (state, action) => {
+  switch (action.type) {
+    case "add_blogpost":
+      return [...state, { title: `Blog Post # ${state.length + 1}` }];
+    default:
+      return state;
+  }
+};
 
-  // let author = { name: "Prison Mike" };
-  // let blogPosts = [
-  //   { title: "There are no movies in prison" },
-  //   { title: "Your Boss is nice" },
-  //   { title: "You gotta good life!" },
-  //   { title: "Worst thing about the prison was the Dementors" },
-  // ];
+export const BlogProvider = ({ children }) => {
+  const [posts, dispatch] = useReducer(blogReducer, []);
+
   const addBlogPost = () => {
-    console.log("add Blog POST TRIGGERED");
-    setPosts([...posts, { title: `Blog Post #${posts.length + 1}` }]);
+    dispatch({ type: "add_blogpost" });
   };
-  // let initialStorage = {
-  //   author: author,
-  //   posts: posts,
-  // };
+
   return (
     <BlogContext.Provider value={{ data: posts, addBlogPost }}>
       {children}
