@@ -44,9 +44,9 @@ const demoSimplePromises = () => {
       h2("Promise: FULFILLED");
       log(toJSON(response));
     })
-    .catch((err) => {
+    .catch((error) => {
       h2("Promise: REJECTED");
-      log(err);
+      log(error.message);
     });
 };
 
@@ -66,7 +66,7 @@ const demoChainingPromises = () => {
           .catch() catches for any of the "then" functions and also catches in the first "catch" function
       `);
       statuses = data;
-      console.log(statuses);
+      log(statuses);
       return axios.get<Order[]>(`${ordersApi}`);
     })
     .then(({ data }) => {
@@ -82,10 +82,10 @@ const demoChainingPromises = () => {
           orderStatus: orderStatus,
         };
       });
-      console.log(orders);
+      log(orders);
     })
     .catch((error) => {
-      console.log(error);
+      log(error.message);
     })
     .finally(() => {
       h2("COMPLETED PROMISE CHAINING SECTION");
@@ -134,7 +134,7 @@ const demoQueuingPromisesAll = () => {
         };
       });
 
-      console.log(orders);
+      log(orders);
     });
 };
 
@@ -159,19 +159,19 @@ const demoQueuingPromisesAllSetteled = () => {
       if (statusResponse.status === "fulfilled") {
         statuses = statusResponse.value.data;
       } else {
-        console.log("ERROR: could not retreive status response");
+        log("ERROR: could not retreive status response");
       }
 
       if (addressResponse.status === "fulfilled") {
         addresses = addressResponse.value.data;
       } else {
-        console.log("ERROR: could not retreive address response");
+        log("ERROR: could not retreive address response");
       }
 
       if (addressTypeResponse.status === "fulfilled") {
         addressesType = addressTypeResponse.value.data;
       } else {
-        console.log("ERROR: could not retreive address type response");
+        log("ERROR: could not retreive address type response");
       }
 
       return axios.get<Order[]>(ordersApi);
@@ -199,10 +199,10 @@ const demoQueuingPromisesAllSetteled = () => {
         };
       });
 
-      console.log(orders);
+      log(orders);
     })
     .catch((error) => {
-      console.log(error);
+      log(error);
     });
 };
 
@@ -226,10 +226,13 @@ const demoCreatingPromises = () => {
 
   pinkyPromise
     .then((data) => {
-      console.log(data);
+      log(data);
     })
     .catch((error) => {
-      console.log(error);
+      log(error);
+    })
+    .finally(() => {
+      log("PINKY PROMISE COMPLETED");
     });
 
   const brokenPromise = new Promise((resolve, reject) => {
@@ -243,21 +246,97 @@ const demoCreatingPromises = () => {
 
   brokenPromise
     .then((data) => {
-      console.log(data);
+      log(data);
     })
     .catch((error) => {
-      console.log(error);
+      log(error);
+    })
+    .finally(() => {
+      log("BROKEN PROMISE COMPLETED");
     });
 };
 
+const demoSimpleAsyncAwait = async () => {
+  h2("Async/Await");
+  const { data } = await axios.get(ordersApi);
+  log(data);
+
+  h2("Async/Await with Error");
+  try {
+    const { data } = await axios.get(`${ordersApi}/234`);
+    log(data);
+  } catch (error: any) {
+    log(error.message);
+  }
+};
+
+const demoAsyncAwaitChaining = async () => {
+  h2("Async-Await Chaining");
+
+  try {
+    let { data: statuses } = await axios.get<OrderStatus[]>(
+      `${orderStatusesApi}`
+    );
+
+    let { data: orders } = await axios.get<Order[]>(`${ordersApi}`);
+
+    log(statuses);
+
+    let ordersResult = orders.map((order: Order) => {
+      let resultFound = statuses.find(
+        (searchResult) => searchResult.id === order.orderStatusId
+      );
+      let orderStatus =
+        resultFound !== undefined ? resultFound.description : "UNKNOWN";
+      return {
+        ...order,
+        orderStatus: orderStatus,
+      };
+    });
+
+    log(ordersResult);
+  } catch (error: any) {
+    console.log(error.message);
+  }
+};
+
+const demoAsyncAwaitConcurrent = async () => {
+  h2("Async-Await Concurrent Requests Chaining");
+  try {
+    let statusesRequest = axios.get<OrderStatus[]>(`${orderStatusesApi}`);
+    let ordersRequest = axios.get<Order[]>(`${ordersApi}`);
+
+    const { data: statuses } = await statusesRequest;
+    const { data: orders } = await ordersRequest;
+
+    let ordersResult = orders.map((order: Order) => {
+      let resultFound = statuses.find(
+        (searchResult) => searchResult.id === order.orderStatusId
+      );
+      let orderStatus =
+        resultFound !== undefined ? resultFound.description : "UNKNOWN";
+      return {
+        ...order,
+        orderStatus: orderStatus,
+      };
+    });
+
+    log(ordersResult);
+  } catch (error: any) {
+    console.log(error.message);
+  }
+};
+
 export function demoPromises() {
-  // setupAxiosInterceptors();
   // demoSimplePromises();
   // demoChainingPromises();
   // demoQueuingPromisesAll();
   // demoQueuingPromisesAllSetteled();
   // demoSingleResponsePromise();
   // demoCreatingPromises();
+  // demoSimpleAsyncAwait();
+  // demoAsyncAwaitChaining();
+  demoAsyncAwaitConcurrent();
 }
 
 interface OrderStatus {

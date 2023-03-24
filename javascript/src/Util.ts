@@ -3,7 +3,7 @@ import { log as consoleLog } from "console";
 import { AxiosResponse } from "axios";
 
 export const log = (output) => {
-  consoleLog(`${output}\n`);
+  consoleLog(output);
 };
 
 export const notes = (message) => {
