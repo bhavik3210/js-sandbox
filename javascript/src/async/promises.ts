@@ -206,8 +206,6 @@ const demoQueuingPromisesAllSetteled = () => {
     });
 };
 
-const demoAny = () => {};
-
 const demoSingleResponsePromise = () => {
   h2("Queuing Promises .any([...]) and .race()");
   notes(`
@@ -216,13 +214,50 @@ const demoSingleResponsePromise = () => {
   `);
 };
 
+const demoCreatingPromises = () => {
+  const pinkyPromise = new Promise((resolve, reject) => {
+    let responseStatus = 200;
+    if (responseStatus === 200) {
+      resolve(`Promise is fulfilled with ${responseStatus}`);
+    } else {
+      reject(`Promise is rejected with ${responseStatus}`);
+    }
+  });
+
+  pinkyPromise
+    .then((data) => {
+      console.log(data);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+
+  const brokenPromise = new Promise((resolve, reject) => {
+    let responseStatus = 500;
+    if (responseStatus === 200) {
+      resolve(`Promise is fulfilled with ${responseStatus}`);
+    } else {
+      reject(`Promise is rejected with ${responseStatus}`);
+    }
+  });
+
+  brokenPromise
+    .then((data) => {
+      console.log(data);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
+
 export function demoPromises() {
   // setupAxiosInterceptors();
   // demoSimplePromises();
   // demoChainingPromises();
   // demoQueuingPromisesAll();
   // demoQueuingPromisesAllSetteled();
-  demoSingleResponsePromise();
+  // demoSingleResponsePromise();
+  // demoCreatingPromises();
 }
 
 interface OrderStatus {
