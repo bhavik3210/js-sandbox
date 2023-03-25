@@ -327,6 +327,21 @@ const demoAsyncAwaitConcurrent = async () => {
   }
 };
 
+async function demoAsyncFuncPromisesInParallelExecution() {
+  await Promise.all([
+    (async () => {
+      const { data } = await axios.get(orderStatusesApi);
+      log("Order Status API call fetched");
+      log(data);
+    })(),
+    (async () => {
+      const { data } = await axios.get(ordersApi);
+      log("Orders API call fetched");
+      log(data);
+    })(),
+  ]);
+}
+
 export function demoPromises() {
   // demoSimplePromises();
   // demoChainingPromises();
@@ -336,7 +351,8 @@ export function demoPromises() {
   // demoCreatingPromises();
   // demoSimpleAsyncAwait();
   // demoAsyncAwaitChaining();
-  demoAsyncAwaitConcurrent();
+  // demoAsyncAwaitConcurrent();
+  // demoAsyncFuncPromisesInParallelExecution();
 }
 
 interface OrderStatus {
