@@ -481,7 +481,7 @@ function demoMysteryOfThisKeywordAndItsContext() {
   `);
 }
 
-export function demoFunctions() {
+export default function demoFunctions() {
   h1("Functions");
   // demoFunctionDeclaration();
   // demoFunctionExpression();

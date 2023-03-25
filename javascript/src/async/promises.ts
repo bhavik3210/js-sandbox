@@ -342,7 +342,7 @@ async function demoAsyncFuncPromisesInParallelExecution() {
   ]);
 }
 
-export function demoPromises() {
+export default function demoPromises() {
   // demoSimplePromises();
   // demoChainingPromises();
   // demoQueuingPromisesAll();
@@ -352,7 +352,7 @@ export function demoPromises() {
   // demoSimpleAsyncAwait();
   // demoAsyncAwaitChaining();
   // demoAsyncAwaitConcurrent();
-  // demoAsyncFuncPromisesInParallelExecution();
+  demoAsyncFuncPromisesInParallelExecution();
 }
 
 interface OrderStatus {
