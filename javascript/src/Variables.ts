@@ -1,6 +1,6 @@
 import { h1, log } from "./Util";
 
-export function demoVariables() {
+export default function demoVariables() {
   h1("VARIABLES");
   let variableName = "String Value";
   log(variableName);

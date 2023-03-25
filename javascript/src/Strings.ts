@@ -12,7 +12,7 @@ import { h1, h2, log } from "./Util";
   - null
 */
 
-export function demoStrings() {
+export default function demoStrings() {
   h1("STRINGS");
   let firstName = "John";
   let lastName = "Doe";
