@@ -16,7 +16,7 @@ export default function demoStrings() {
   h1("STRINGS");
   let firstName = "John";
   let lastName = "Doe";
-  let title = "Title";
+  let title = `Title`;
   title = "New Title";
 
   h2("Concatenation");
