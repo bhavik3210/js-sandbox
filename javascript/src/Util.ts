@@ -6,6 +6,12 @@ const log = (output) => {
   consoleLog(output);
 };
 
+const logList = (output) => {
+  for (let i = 0; i < output.length; i++) {
+    consoleLog(output[i]);
+  }
+};
+
 const notes = (message) => {
   consoleLog(chalk.gray`${message}\n`);
 };
@@ -32,4 +38,4 @@ const toJSON = (response: AxiosResponse<any, any>) => {
   }
 };
 
-export { log, notes, output, h1, h2, toJSON };
+export { log, logList, notes, output, h1, h2, toJSON };
