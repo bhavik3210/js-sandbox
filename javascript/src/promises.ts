@@ -1,6 +1,6 @@
 import axios from "axios";
 import { stat } from "fs";
-import { h1, h2, log, notes, toJSON } from "../Util";
+import { h1, h2, log, notes, toJSON } from "./Util";
 
 const baseUrl = "http://localhost:8000";
 const ordersApi = `${baseUrl}/orders`;
