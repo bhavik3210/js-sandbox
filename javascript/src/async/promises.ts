@@ -314,7 +314,7 @@ const demoAsyncAwaitConcurrent = async () => {
         (searchResult) => searchResult.id === order.orderStatusId
       );
       let orderStatus =
-        resultFound !== undefined ? resultFound.description : "UNKNOWN";
+        resultFound !== undefined ? resultFound.description : "UNKNOWN"; // !resultFound equivalent
       return {
         ...order,
         orderStatus: orderStatus,
