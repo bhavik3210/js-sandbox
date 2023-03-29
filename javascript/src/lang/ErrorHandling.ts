@@ -1,4 +1,4 @@
-import { h1, h2, log, notes, output } from "./Util";
+import { h1, h2, log, notes, output } from "../util/Util";
 import { error } from "console";
 
 /*

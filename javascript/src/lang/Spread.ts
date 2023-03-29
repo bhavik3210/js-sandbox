@@ -1,4 +1,4 @@
-import { h1, h2, log, logList, notes, output } from "./Util";
+import { h1, h2, log, logList, notes, output } from "../util/Util";
 
 function demoSimpleSpreadOperatorOnArray() {
   let list1 = ["😉", "😊", "😇"];

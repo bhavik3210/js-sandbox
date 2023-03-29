@@ -5,4 +5,11 @@ import demoPromises from "./Promises";
 import demoSpreadOperator from "./Spread";
 import demoErrorHandling from "./ErrorHandling";
 
-demoErrorHandling();
+export {
+  demoFunctions,
+  demoVariables,
+  demoStrings,
+  demoPromises,
+  demoSpreadOperator,
+  demoErrorHandling,
+};

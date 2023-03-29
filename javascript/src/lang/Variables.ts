@@ -1,4 +1,4 @@
-import { h1, log } from "./Util";
+import { h1, log } from "../util/Util";
 
 export default function demoVariables() {
   h1("VARIABLES");

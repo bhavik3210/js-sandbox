@@ -1,6 +1,6 @@
 import axios from "axios";
 import { stat } from "fs";
-import { h1, h2, log, notes, toJSON } from "./Util";
+import { h1, h2, log, notes, toJSON } from "../util/Util";
 
 const baseUrl = "http://localhost:8000";
 const ordersApi = `${baseUrl}/orders`;
@@ -24,7 +24,7 @@ const setupAxiosInterceptors = () => {
 };
 
 const demoSimplePromises = () => {
-  h1("Promises");
+  h2("Simple Promises");
   notes(`
     Promises have three stages
     - Pending: Amount of time promise takes (i.e. 500 milliseconds to complete a network request)
@@ -343,6 +343,7 @@ async function demoAsyncFuncPromisesInParallelExecution() {
 }
 
 export default function demoPromises() {
+  h1("Promises");
   // demoSimplePromises();
   // demoChainingPromises();
   // demoQueuingPromisesAll();

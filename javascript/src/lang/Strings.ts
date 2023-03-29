@@ -1,4 +1,4 @@
-import { h1, h2, log } from "./Util";
+import { h1, h2, log } from "../util/Util";
 
 /*
   Javascript Primitive types
