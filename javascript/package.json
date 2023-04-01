@@ -5,7 +5,7 @@
   "scripts": {
     "start": "nodemon -q js/App.js",
     "tsc": "tsc",
-    "server": "json-server --watch json/sample.json --port 8000",
+    "server": "json-server --watch json/sample.json --port 8010",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

@@ -7,4 +7,4 @@ import {
   demoErrorHandling,
 } from "./lang/";
 
-demoPromises();
+// demoPromises();
