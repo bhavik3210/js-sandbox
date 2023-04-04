@@ -33,5 +33,7 @@
   "devDependencies": {
     "@types/node": "^18.15.3",
     "typescript": "^5.0.2"
-  }
+  },
+  "main": "index.js",
+  "license": "MIT"
 }

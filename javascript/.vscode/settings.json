@@ -1,0 +1,15 @@
+{
+  "workbench.colorCustomizations": {
+    "titleBar.activeForeground": "#323330",
+    "titleBar.inactiveForeground": "#323330",
+    "titleBar.activeBackground": "#e99e43",
+    "titleBar.inactiveBackground": "#f0a84f"
+  },
+  "files.exclude": {
+    "node_modules/": false,
+    "js": false,
+    "package-lock.json": true,
+    "package.json": false,
+    "tsconfig.json": false
+  }
+}
