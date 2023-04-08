@@ -19,6 +19,7 @@ module.exports = {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'bin'),
   },
+  devtool: 'eval-source-map',
   devServer: {
     static: [path.join(__dirname, 'public'), path.join(__dirname, 'bin')],
     port: 7777,
