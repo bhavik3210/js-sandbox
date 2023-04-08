@@ -1,5 +1,5 @@
 export class Main {
-  render(): any {
-    console.log("Rendering the application");
+  render(): void {
+    console.log('Rendering the application')
   }
 }
