@@ -1,0 +1,8 @@
+{
+  "compilerOptions": {
+    "composite": true /* flag that states that this project can be imported as project reference in another project*/,
+    "outDir": "../../dist/js",
+    "sourceMap": true
+  },
+  "include": ["./index.ts"]
+}
