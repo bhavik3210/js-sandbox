@@ -8,19 +8,19 @@ let items = [];
 // all before/after hooks can be used within describe block with their own scope
 
 beforeEach(() => {
-  console.log("MAIN beforeEach");
+  // console.log("MAIN beforeEach");
 });
 
 beforeAll(() => {
-  console.log("MAIN beforeAll");
+  // console.log("MAIN beforeAll");
 });
 
 afterAll(() => {
-  console.log("MAIN afterAll");
+  // console.log("MAIN afterAll");
 });
 
 afterEach(() => {
-  console.log("MAIN afterEach");
+  // console.log("MAIN afterEach");
 });
 
 describe("calculateTotal", () => {
@@ -106,7 +106,7 @@ describe("serializeBasketItemsToJson", () => {
 
     /*
         toBe compares by the reference, great for premitive types but not suitable for objects.
-        because premitive types are by reference and objects are by value
+        because premitive types are compared by reference and objects are by value
     */
     // expect(serializedItems).toBe(itemsSerializedToJson);
 
@@ -114,5 +114,6 @@ describe("serializeBasketItemsToJson", () => {
         to check equality by value, use toEqual()
     */
     expect(serializedItems).toEqual(itemsSerializedToJson);
+    expect(serializedItems).not.toStrictEqual(itemsSerializedToJson);
   });
 });
