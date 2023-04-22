@@ -18,8 +18,6 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
-import { NavigationContainer } from '@react-navigation/native';
-
 type SectionProps = PropsWithChildren<{
   title: string;
 }>;
