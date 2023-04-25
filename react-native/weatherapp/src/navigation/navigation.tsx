@@ -1,6 +1,6 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { Weather } from './weather';
+import { Weather } from '../screens/weather';
 
 const AppStack = createNativeStackNavigator();
 

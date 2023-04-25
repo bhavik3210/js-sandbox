@@ -18,7 +18,7 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 import { NavigationContainer } from '@react-navigation/native';
-import { AppNavigation } from './navigation';
+import { AppNavigation } from './src/navigation/navigation';
 
 type SectionProps = PropsWithChildren<{
   title: string;
@@ -57,6 +57,7 @@ function App(): JSX.Element {
 
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+    flex: 1,
   };
 
   return (
@@ -94,8 +95,13 @@ function App(): JSX.Element {
           </View>
         </ScrollView>
       </SafeAreaView> */}
-
-      <AppNavigation />
+      <SafeAreaView style={backgroundStyle}>
+        <StatusBar
+          barStyle={isDarkMode ? 'light-content' : 'dark-content'}
+          backgroundColor={backgroundStyle.backgroundColor}
+        />
+        <AppNavigation />
+      </SafeAreaView>
     </NavigationContainer>
   );
 }
