@@ -18,6 +18,8 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 import { NavigationContainer } from '@react-navigation/native';
+import { AppNavigation } from './navigation';
+
 type SectionProps = PropsWithChildren<{
   title: string;
 }>;
@@ -59,13 +61,13 @@ function App(): JSX.Element {
 
   return (
     <NavigationContainer>
-      <SafeAreaView style={backgroundStyle}>
+      {/* <SafeAreaView style={backgroundStyle}>
         <StatusBar
           barStyle={isDarkMode ? 'light-content' : 'dark-content'}
           backgroundColor={backgroundStyle.backgroundColor}
         />
         <AppNavigation />
-        {/* <ScrollView
+        <ScrollView
           contentInsetAdjustmentBehavior="automatic"
           style={backgroundStyle}
         >
@@ -90,8 +92,10 @@ function App(): JSX.Element {
             </Section>
             <LearnMoreLinks />
           </View>
-        </ScrollView> */}
-      </SafeAreaView>
+        </ScrollView>
+      </SafeAreaView> */}
+
+      <AppNavigation />
     </NavigationContainer>
   );
 }
