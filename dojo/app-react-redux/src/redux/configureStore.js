@@ -5,7 +5,7 @@ import reduxImmutableStateInvariant from "redux-immutable-state-invariant";
 // reduxImmutableStateInvariant is a middleman that will warn if you try to mutate state
 export default (initialState) => {
   const composeEnhancers =
-    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose; // add suport fro redux dev tools
+    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose; // add suport for redux dev tools
   return createStore(
     rootReducer,
     initialState,

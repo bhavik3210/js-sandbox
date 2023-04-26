@@ -4,7 +4,7 @@ import createCourse from "../../redux/actions/courseActions";
 import PropTypes from "prop-types";
 
 const CoursesPage = ({ courses, dispatch }) => {
-  console.log(courses);
+  // console.log(courses);
   const [course, setCourse] = useState({ key: 0, title: "" });
 
   const handleChange = (event) => {
@@ -37,14 +37,14 @@ CoursesPage.propTypes = {
 };
 
 const mapStateToProps = (state) => {
-  console.log(state);
+  // console.log(state);
   return {
     courses: state.courses, //request only the data that you need, because it will rerender dom
   };
 };
 
 // export default connect(mapStateToProps, mapDispatchToProps)(CoursesPage);
-export default connect(mapStateToProps)(CoursesPage); //no need for mapDispatchToProps in this case, it gets ijected automatically when we don't supply it
+export default connect(mapStateToProps)(CoursesPage); //no need for mapDispatchToProps in this case, it gets ejected automatically when we don't supply it
 /*
   - connect function returns a function, which immediately calls the CoursesPage component and is exported as default
   Above is Equivalent to:
