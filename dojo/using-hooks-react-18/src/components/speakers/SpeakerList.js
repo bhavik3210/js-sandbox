@@ -1,17 +1,21 @@
 import SpeakerLine from "./SpeakerLine";
 
 import axios from "axios";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useReducer } from "react";
 
-function List({ speakers, updateSpeaker }) {
+const UPDATE_SPEAKER = "updateSpeaker";
+const SPEAKERS_LOADED = "speakersLoaded";
+const SET_LOADING_STATUS = "setLoadingStatus";
+
+function List({ state, dispatch }) {
   const [updatingId, setUpdatingId] = useState(0); // 1269;
   const isPending = false;
 
   function toggleFavoriteSpeaker(speakerRec) {
     const speakerRecUpdated = { ...speakerRec, favorite: !speakerRec.favorite };
-    updateSpeaker(speakerRecUpdated);
+    dispatch({ type: UPDATE_SPEAKER, speaker: speakerRecUpdated });
     async function updateAsync(rec) {
-      setUpdatingId(speakerRec.id);
+      setUpdatingId(rec.id);
       await axios.put(`/api/speakers/${rec.id}`, speakerRecUpdated);
       setUpdatingId(0);
     }
@@ -46,7 +50,7 @@ function List({ speakers, updateSpeaker }) {
       </div>
 
       <div className="row g-3">
-        {speakers.map(function (speakerRec) {
+        {state.speakers.map(function (speakerRec) {
           const highlight = false;
           return (
             <SpeakerLine
@@ -65,15 +69,38 @@ function List({ speakers, updateSpeaker }) {
 
 const SpeakerList = () => {
   const darkTheme = false;
-  const [speakers, setSpeakers] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const initialState = {
+    speakers: [],
+    loading: true,
+  };
+  const reducer = (state, action) => {
+    switch (action.type) {
+      case SPEAKERS_LOADED:
+        return { ...state, loading: false, speakers: action.speakers };
+      case SET_LOADING_STATUS:
+        return { ...state, loading: true };
+      case UPDATE_SPEAKER:
+        var speakersUpdated = [];
+        state.speakers.forEach((speaker) => {
+          if (speaker.id === action.speaker.id) {
+            speakersUpdated.push(action.speaker);
+          } else {
+            speakersUpdated.push(speaker);
+          }
+        });
+        return { ...state, speakers: speakersUpdated };
+      default:
+        return state;
+    }
+  };
+
+  const [state, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
     async function getDataAsync() {
-      setLoading(true);
+      dispatch({ type: SET_LOADING_STATUS });
       const results = await axios.get("/api/speakers");
-      setSpeakers(results.data);
-      setLoading(false);
+      dispatch({ type: SPEAKERS_LOADED, speakers: results.data });
     }
     getDataAsync();
   }, []);
@@ -85,11 +112,11 @@ const SpeakerList = () => {
     setSpeakers(speakerUpdated);
   }
 
-  if (loading) return <div> loading... </div>;
+  if (state.loading) return <div> loading... </div>;
 
   return (
     <div className={darkTheme ? "theme-dark" : "theme-light"}>
-      <List speakers={speakers} updateSpeaker={updateSpeaker} />
+      <List state={state} dispatch={dispatch} />
     </div>
   );
 };

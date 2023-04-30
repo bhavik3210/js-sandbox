@@ -5,6 +5,7 @@ import {
   demoPromises,
   demoSpreadOperator,
   demoErrorHandling,
-} from "./lang/";
+  demoCollections,
+} from './lang/';
 
-demoSpreadOperator();
+demoCollections();
