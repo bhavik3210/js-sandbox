@@ -4,6 +4,7 @@ import SpeakerMenu from "./SpeakerMenu";
 import SpeakersList from "./SpeakersList";
 import { useContext } from "react";
 import { ThemeContext } from "../../contexts/ThemeContext";
+import { SpeakerDataProvider } from "../../contexts/SpeakersDataContext";
 
 function Speakers() {
   const { darkTheme } = useContext(ThemeContext);
@@ -13,7 +14,9 @@ function Speakers() {
       <SpeakerMenu />
       <div className="container">
         <div className="row g-4">
-          <SpeakersList speakerList={speakerList} />
+          <SpeakerDataProvider>
+            <SpeakersList />
+          </SpeakerDataProvider>
         </div>
       </div>
     </div>
