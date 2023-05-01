@@ -1,7 +1,8 @@
 import SpeakerLine from "./SpeakerLine";
 
 import axios from "axios";
-import { useState, useEffect, useReducer } from "react";
+import { useState, useEffect, useReducer, useContext } from "react";
+import { ThemeContext } from "../../App";
 
 const UPDATE_SPEAKER = "updateSpeaker";
 const SPEAKERS_LOADED = "speakersLoaded";
@@ -68,7 +69,7 @@ function List({ state, dispatch }) {
 }
 
 const SpeakerList = () => {
-  const darkTheme = false;
+  const { darkTheme } = useContext(ThemeContext);
   const initialState = {
     speakers: [],
     loading: true,

@@ -1,10 +1,10 @@
 import SpeakerDetail from "./SpeakerDetail";
 import { speakerList } from "../../../speakersData";
+import { useContext } from "react";
+import { ThemeContext } from "../../App";
 
 export default function Speaker({ id }) {
-  const { darkTheme } = {
-    darkTheme: false,
-  };
+  const { darkTheme } = useContext(ThemeContext);
   const speakerRec = speakerList?.find((rec) => rec.id === id);
 
   return speakerRec ? (
