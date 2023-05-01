@@ -2,7 +2,7 @@ import SpeakerLine from "./SpeakerLine";
 
 import axios from "axios";
 import { useState, useEffect, useReducer, useContext } from "react";
-import { ThemeContext } from "../../App";
+import { ThemeContext } from "../../contexts/ThemeContext";
 
 const UPDATE_SPEAKER = "updateSpeaker";
 const SPEAKERS_LOADED = "speakersLoaded";
