@@ -4,9 +4,8 @@
   License MIT: https://github.com/HermanMartinus/bearblog/blob/master/LICENSE.md
  */
 
-
 body {
-	font-family: Verdana, sans-serif;
+	font-family: Inter, sans-serif;
 	margin: auto;
 	padding: 20px;
 	max-width: 65ch;
@@ -52,13 +51,18 @@ img {
 }
 code {
 	padding: 2px 5px;
-	background-color: #f2f2f2;
+	font-size: 16px;
+	color: rgb(181, 0, 0);
+	font-weight: 600;
+	font-family: JetBrains Mono;
+	background-color: #f6f6f6;
 }
 pre {
-	padding: 1rem;
+	padding: 1.5rem;
 }
 pre > code {
 	all: unset;
+	font-family: JetBrains Mono;
 }
 blockquote {
 	border: 1px solid #999;
