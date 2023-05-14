@@ -1,6 +1,9 @@
 ---
 import { CollectionEntry, getCollection } from 'astro:content';
 import BlogPost from '../../layouts/BlogPost.astro';
+import '@fontsource/jetbrains-mono';
+import '@fontsource/inter'
+
 
 export async function getStaticPaths() {
 	const posts = await getCollection('blog');
@@ -17,5 +20,6 @@ const { Content } = await post.render();
 
 <BlogPost {...post.data}>
 	<h1>{post.data.title}</h1>
+
 	<Content />
 </BlogPost>
