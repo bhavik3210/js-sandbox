@@ -2,33 +2,63 @@ import React, {useState} from "react";
 import "./style-sessions.css";
 import { Link } from "react-router-dom"
 import { Formik, Field, Form } from "formik"
+import { gql, useQuery} from "@apollo/client"
 
 /* ---> Define queries, mutations and fragments here */
+const SESSIONS = gql`
+  query sessions($day: String!) {
+    sessions(day: $day) {
+      id
+      title
+      day
+      room
+      level
+      startsAt
+    }
+  }
+`;
+
+const SessionList = ({ day }) => {
+
+  if (day == "") day ="Wednesday"
+
+  const {loading, data } = useQuery(SESSIONS, {
+    variables: {day}
+  })
+
+  if (loading) return <p>Loading Sessions...</p>
+
+  return data.sessions.map((session) => (
+    <SessionItem 
+    key={session.id}
+    session={{
+      ...session
+    }} 
+  />
+  ))
+}
+
 
 function AllSessionList() {
    /* ---> Invoke useQuery hook here to retrieve all sessions and call SessionItem */
    return <SessionItem />
 }
 
-function SessionList () {
-  /* ---> Invoke useQuery hook here to retrieve sessions per day and call SessionItem */
-  return <SessionItem />
-}
 
-function SessionItem() {
-
+function SessionItem({ session }) {
+  const { id, title, day, room, level, startsAt } = session
   /* ---> Replace hard coded session values with data that you get back from GraphQL server here */
   return (
-    <div key={'id'} className="col-xs-12 col-sm-6" style={{ padding: 5 }}>
+    <div key={id} className="col-xs-12 col-sm-6" style={{ padding: 5 }}>
       <div className="panel panel-default">
         <div className="panel-heading">
-          <h3 className="panel-title">{"title"}</h3>
-          <h5>{`Level: `}</h5>
+          <h3 className="panel-title">{title}</h3>
+          <h5>{`Level: ${level}`}</h5>
         </div>
         <div className="panel-body">
-          <h5>{`Day: `}</h5>
-          <h5>{`Room Number: `}</h5>
-          <h5>{`Starts at: `}</h5>
+          <h5>{`Day: ${day}`}</h5>
+          <h5>{`Room Number: ${room}`}</h5>
+          <h5>{`Starts at: ${startsAt}`}</h5>
         </div>
         <div className="panel-footer">
         </div>
