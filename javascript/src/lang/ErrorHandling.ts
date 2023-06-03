@@ -74,6 +74,22 @@ const demoHandlingMultipleTypes2 = () => {
   }
 };
 
+
+interface Employee {
+	name: string;
+	title: string;
+}
+
+let dev = {
+	name: "John", 
+	title: "Senior Typescript Developer",
+	editor: "Visual Studio Code"
+}
+
+let newEmployee: Employee = develoepr;
+// Note: dev actually has additioanl field editor but as long as it satisfies all member of Employee interface it doesnt' matter. It can still be considered as Employee type
+
+
 const demoMyCustomErrorType = () => {
   h2(`Error handling My Custom Error Type`);
 
