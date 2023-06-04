@@ -3630,6 +3630,20 @@
       "level": "Intermediate",
       "day": "Thursday",
       "id": "814b1f5e-e6df-440b-a91c-df198b5bbed2"
+    },
+    {
+      "title": "My New Session",
+      "description": "This is a great Session",
+      "level": "Beginner",
+      "day": "Friday",
+      "id": "71af8dd8-1330-4700-8f07-05fb752206f9"
+    },
+    {
+      "title": "Title",
+      "description": "asdf",
+      "level": "asdf",
+      "day": "asdf",
+      "id": "edd626ee-d044-4a7d-8ea1-4b4ba48a5b2b"
     }
   ]
 }
