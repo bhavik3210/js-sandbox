@@ -1,7 +1,7 @@
 import * as React from "react";
 import "./style-sessions.css";
 import {gql, useQuery} from "@apollo/client"
-import useParams from "react"
+import { useParams } from "react-router-dom";
 
 // below is a fragment that can be reused 
 const SPEAKER_ATTRIBUTES = gql`
@@ -31,9 +31,9 @@ const SPEAKER_BY_ID = gql`
     speakerById(id: $id) {
       ...SpeakerInfo
     }
-    ${SPEAKER_ATTRIBUTES}
   }
-`
+  ${SPEAKER_ATTRIBUTES}
+`;
 
 const SpeakerList = () => {
 
@@ -100,24 +100,26 @@ const SpeakerDetails = () => {
   });
 
   if (loading) return <p>Loading Speaker...</p>
-  if (error) return <p>Error Loading Speakers!</p>
+  if (error) return <p>Error Loading Speakers! {JSON.stringify(error)}</p>
 
   const speaker = data.speakerById;
   const { id, name, bio, sessions } = speaker;
     /* ---> Replace hardcoded speaker values with data that you get back from GraphQL server here */
   return (
-    <div key={'id'} className="col-xs-12" style={{ padding: 5 }}>
+    <div key={id} className="col-xs-12" style={{ padding: 5 }}>
       <div className="panel panel-default">
         <div className="panel-heading">
-          <h3 className="panel-title">{'name'}</h3>
+          <h3 className="panel-title">{name}</h3>
         </div>
         <div className="panel-body">
-          <h5>{'bio'}</h5>
+          <h5>{bio}</h5>
         </div>
         <div className="panel-footer">
-          {{
-						/* ---> Loop through speaker's sessions here */
-					}}
+        {sessions.map(({ id, title }) => (
+            <span key={id} style={{ padding: 5 }}>
+              <p>"{title}"</p>
+            </span>
+          ))}
         </div>
       </div>
     </div>
