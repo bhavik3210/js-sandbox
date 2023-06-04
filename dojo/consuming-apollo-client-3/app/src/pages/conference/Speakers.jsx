@@ -3,34 +3,35 @@ import "./style-sessions.css";
 import {gql, useQuery} from "@apollo/client"
 import useParams from "react"
 
-
+// below is a fragment that can be reused 
+const SPEAKER_ATTRIBUTES = gql`
+  fragment SpeakerInfo on Speaker {
+    id
+    name
+    bio
+    sessions {
+      id
+      title
+    }
+  }
+`;
 
 /* ---> Define queries, mutations and fragments here */
 const SPEAKERS = gql`
   query speakers {
     speakers {
-      id
-      name
-      bio
-      sessions {
-        id
-        title
-      }
+      ...SpeakerInfo
     }
   }
+  ${SPEAKER_ATTRIBUTES}
 `;
 
 const SPEAKER_BY_ID = gql`
   query speakerById($id: ID!) {
     speakerById(id: $id) {
-      id
-      bio
-      name
-      sessions {
-        id
-        title
-      }
+      ...SpeakerInfo
     }
+    ${SPEAKER_ATTRIBUTES}
   }
 `
 
