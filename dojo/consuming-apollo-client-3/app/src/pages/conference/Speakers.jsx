@@ -4,10 +4,12 @@ import {gql, useQuery, useMutation} from "@apollo/client"
 import { useParams } from "react-router-dom";
 
 // mutation
+// just by adding featured property in query it will update the cache
 const FEATURED_SPEAKER = gql`
   mutation markFeatured($speakerId: ID!, $featured: Boolean!){
     markFeatured(speakerId: $speakerId, featured: $featured) {
       id
+      featured
     }
   }
 `
@@ -18,6 +20,7 @@ const SPEAKER_ATTRIBUTES = gql`
     id
     name
     bio
+    featured
     sessions {
       id
       title
@@ -47,14 +50,14 @@ const SPEAKER_BY_ID = gql`
 const SpeakerList = () => {
 
   /* ---> Replace hardcoded speaker values with data that you get back from GraphQL server here */
-  const featured = false;
+
   const { loading, error, data} = useQuery(SPEAKERS);
   const [ markFeatured ] = useMutation(FEATURED_SPEAKER)
 
   if(loading) return <p>Loading speakers...</p>
   if (error) return <p> ERROR!  Something went wrong</p>
 
-  return data.speakers.map(({id, name, bio, sessions}) => (
+  return data.speakers.map(({id, name, bio, sessions, featured}) => (
     <div
       key={id}
       className="col-xs-12 col-sm-6 col-md-6"
@@ -80,7 +83,7 @@ const SpeakerList = () => {
               className="btn btn-default btn-lg"	
               onClick={async() => {
                 /* ---> Call useMutation's mutate function to mark speaker as featured */
-                await markFeatured({variables: {speakerId: id, featured: true}})
+                await markFeatured({variables: {speakerId: id, featured: !featured}})
               }}	
               >	
                 <i	
