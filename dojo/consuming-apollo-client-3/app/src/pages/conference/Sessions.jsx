@@ -9,31 +9,31 @@ import { gql, useQuery, useMutation} from "@apollo/client"
 const SESSIONS_ATTRIBUTES = gql`
   fragment SessionInfo on Session {
     id
-      title
-      day
-      room
-      level
-      startsAt
-      description @include(if: $isDescription)
-      speakers {
-        id
-        name
-      }
+    title
+    day
+    room
+    level
+    startsAt
+    # description @include(if: $isDescription)
+    speakers {
+      id
+      name
+    }
   }
 `;
 
 const CREATE_SESSION = gql`
   mutation CreateSession($session: SessionInput!) {
     createSession(session: $session) {
-      id
-      title
+      ...SessionInfo
     }
   }
+  ${SESSIONS_ATTRIBUTES}
 `;
 
 /* ---> Define queries, mutations and fragments here */
 const SESSIONS = gql`
-  query sessions($day: String!, $isDescription: Boolean!) {
+  query sessions($day: String!) {
     intro: sessions(day: $day, level: "Introductory and overview") {
      ...SessionInfo
     }
@@ -43,6 +43,15 @@ const SESSIONS = gql`
     }
 
     advanced: sessions(day: $day, level: "Advanced") {
+      ...SessionInfo
+    }
+  }
+  ${SESSIONS_ATTRIBUTES}
+`;
+
+const ALL_SESSIONS = gql`
+  query sessions{
+    sessions {
       ...SessionInfo
     }
   }
@@ -105,7 +114,20 @@ const SessionList = ({ day }) => {
 
 function AllSessionList() {
    /* ---> Invoke useQuery hook here to retrieve all sessions and call SessionItem */
-   return <SessionItem />
+   const { loading, error, data } = useQuery(ALL_SESSIONS);
+
+   if (loading) return <p>Loading Sessions..</p>
+ 
+   if (error) return <p>Error loading sessions!</p>
+
+   return data.sessions.map((session) => (
+     <SessionItem
+       key={session.id}
+       session={{
+         ...session
+       }}
+     />
+   ));
 }
 
 
@@ -182,8 +204,26 @@ export function Sessions() {
 
 export function SessionForm() {	
 
+  const updateSessions = (cache, {data}) => {
+    cache.modify({
+      fields: {
+        sessions(existingSessions = []) {
+          const newSession = data.createSession;
+          cache.writeQuery({
+            query: ALL_SESSIONS,
+            data: {
+              newSession, ...existingSessions
+            }
+          })
+        }
+      }
+    })
+  }
+
   /* ---> Call useMutation hook here to create new session and update cache */
-  const [ create, {called, error }] = useMutation(CREATE_SESSION)
+  const [ create, {called, error }] = useMutation(CREATE_SESSION, { variables: {
+    update: updateSessions
+  }})
 
   if (called) return <p>Session has been Submitted Successfully!</p>
 
