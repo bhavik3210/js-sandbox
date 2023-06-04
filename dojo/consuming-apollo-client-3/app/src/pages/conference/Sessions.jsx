@@ -4,11 +4,9 @@ import { Link } from "react-router-dom"
 import { Formik, Field, Form } from "formik"
 import { gql, useQuery} from "@apollo/client"
 
-/* ---> Define queries, mutations and fragments here */
-const SESSIONS = gql`
-  query sessions($day: String!) {
-    sessions(day: $day) {
-      id
+const SESSIONS_ATTRIBUTES = gql`
+  fragment SessionInfo on Session {
+    id
       title
       day
       room
@@ -18,8 +16,25 @@ const SESSIONS = gql`
         id
         name
       }
+  }
+`;
+
+/* ---> Define queries, mutations and fragments here */
+const SESSIONS = gql`
+  query sessions($day: String!) {
+    intro: sessions(day: $day, level: "Introductory and overview") {
+     ...SessionInfo
+    }
+
+    intermediate: sessions(day: $day, level: "Intermediate") {
+      ...SessionInfo
+    }
+
+    advanced: sessions(day: $day, level: "Advanced") {
+      ...SessionInfo
     }
   }
+  ${SESSIONS_ATTRIBUTES}
 `;
 
 const SessionList = ({ day }) => {
@@ -40,15 +55,37 @@ const SessionList = ({ day }) => {
     </>
   )
 
+  const results = [];
 
-  return data.sessions.map((session) => (
+  results.push(data.intro.map((session)=>(
     <SessionItem 
-    key={session.id}
-    session={{
-      ...session
-    }} 
-  />
-  ))
+      key={session.id}
+      session={{
+        ...session
+      }}
+    />
+  )))
+
+
+  results.push(data.intermediate.map((session)=>(
+    <SessionItem
+      key ={session.id}
+      session={{
+        ...session
+      }}
+    />
+  )))
+
+  results.push(data.advanced.map((session)=>(
+    <SessionItem
+      key ={session.id}
+      session={{
+        ...session
+      }}
+    />
+  )))
+
+  return results
 }
 
 
