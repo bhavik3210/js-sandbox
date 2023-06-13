@@ -1,4 +1,4 @@
-> Everything related to Javscript based projects (i.e. typescript, node, react, and all other js libraries,frameworks,engines in between) 
+> Everything related to Javscript based projects (i.e. typescript, node, react, and all other js libraries, frameworks, engines in between) 
 
 ## Project Strucuture: 
 using `zettelkasten` method in non-conventional ways
