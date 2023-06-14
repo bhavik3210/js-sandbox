@@ -256,7 +256,7 @@ const demoAsyncAwaitChaining = async () => {
     }
 };
 const demoAsyncAwaitConcurrent = async () => {
-    (0, Util_1.h2)("Async-Await Concurrent Requests Chaining");
+    (0, Util_1.h2)("Async-Await Concurrent Request Chaining");
     try {
         let statusesRequest = axios_1.default.get(`${orderStatusesApi}`);
         let ordersRequest = axios_1.default.get(`${ordersApi}`);
