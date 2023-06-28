@@ -1,6 +1,7 @@
 import styles from "./banner.module.css";
 
-const Banner = () => {
+// const Banner = ({children, headerText}) => { can also be destructured directly from props
+const Banner = (props) => {
   const subtitleStyle = {
     fontStyle: "italic",
     fontSize: "x-large",
@@ -17,7 +18,10 @@ const Banner = () => {
         // style={{ fontStyle: "italic", fontWeight: "bold" }}
         style={subtitleStyle}
       >
-        Providing houses all over the world
+        {props.headerText}
+        {"\n"}
+        {props.children}
+        {/* {console.log(props)} */}
       </div>
     </header>
   );
