@@ -1,5 +1,5 @@
 import houses from "../data/houses.json" assert { type: "json" };
-
+import HouseRow from "./houseRow";
 const HouseList = () => {
   console.log(houses);
 
@@ -19,15 +19,12 @@ const HouseList = () => {
           </tr>
         </thead>
         <tbody>
-          {houses.map((h) => {
-            return (
-              <tr key={h.key}>
-                <td>{h.address}</td>
-                <td>{h.country}</td>
-                <td>{h.price}</td>
-              </tr>
-            );
-          })}
+          {houses.map((h) => (
+            <HouseRow key={h.id} house={h} />
+          ))}
+          {/* {houses.map((h) => {
+            return <HouseRow key={h.id} house={h} />;
+          })} */}
         </tbody>
       </table>
     </>
