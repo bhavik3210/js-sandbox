@@ -1,0 +1,27 @@
+[
+  {
+    "id": 1,
+    "address": "12 Valley of Kings, Geneva",
+    "country": "Switzerland",
+    "price": 900000
+  },
+  {
+    "id": 2,
+    "address": "89 Road of Forks, Bern",
+    "country": "Switzerland",
+    "price": 500000
+  },
+
+  {
+    "id": 3,
+    "address": "4543, Shadow Valley, Vienna",
+    "country": "Austria",
+    "price": 1100000
+  },
+  {
+    "id": 4,
+    "address": "34, Queens Drive, Alta",
+    "country": "Norway",
+    "price": 300000
+  }
+]
