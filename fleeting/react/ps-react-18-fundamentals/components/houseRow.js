@@ -10,4 +10,6 @@ const HouseRow = ({ house }) => {
   );
 };
 
+// const HouseRowMem = React.memo(HouseRow);
+
 export default HouseRow;

@@ -1,8 +1,7 @@
-import { useState } from "react";
-import housesArray from "../data/houses.json" assert { type: "json" };
+import { useEffect, useState } from "react";
 import HouseRow from "./houseRow";
 const HouseList = () => {
-  const [houses, setHouses] = useState(housesArray);
+  const [houses, setHouses] = useState([]);
   // const [counter, setCounter] = useState(0);
   // setCounter((current) => counter + 1);
 
@@ -17,6 +16,16 @@ const HouseList = () => {
       },
     ]);
   };
+
+  useEffect(() => {
+    const fetchHouses = async () => {
+      const response = await fetch("/api/houses");
+      const housesResponse = await response.json();
+      console.log(housesResponse);
+      setHouses(housesResponse);
+    };
+    fetchHouses();
+  }, []);
 
   return (
     <>
@@ -34,6 +43,7 @@ const HouseList = () => {
           </tr>
         </thead>
         <tbody>
+          console.log(houses)
           {houses.map((h) => (
             <HouseRow key={h.id} house={h} />
           ))}
