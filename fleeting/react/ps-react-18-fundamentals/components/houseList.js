@@ -1,7 +1,22 @@
-import houses from "../data/houses.json" assert { type: "json" };
+import { useState } from "react";
+import housesArray from "../data/houses.json" assert { type: "json" };
 import HouseRow from "./houseRow";
 const HouseList = () => {
-  console.log(houses);
+  const [houses, setHouses] = useState(housesArray);
+  // const [counter, setCounter] = useState(0);
+  // setCounter((current) => counter + 1);
+
+  const addHouse = () => {
+    setHouses([
+      ...houses,
+      {
+        id: 5,
+        address: "1122 Kings, Tokyo",
+        country: "Japan",
+        price: 1000000,
+      },
+    ]);
+  };
 
   return (
     <>
@@ -27,6 +42,9 @@ const HouseList = () => {
           })} */}
         </tbody>
       </table>
+      <button className="btn btn-primary" onClick={addHouse}>
+        Add
+      </button>
     </>
   );
 };
